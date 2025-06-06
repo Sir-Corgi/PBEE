@@ -127,7 +127,8 @@ def post_processing(pdbfiles, partner1, partner2, trainedmodels, mlmodel, st):
                 pose.dump_pdb(f'{outdir}/{basename}_rlx.pdb')
             
             # checkpoint
-            condition = not rosetta_features.applymap(lambda x: '-nan' in str(x)).any().any()
+            #condition = not rosetta_features.applymap(lambda x: '-nan' in str(x)).any().any()
+            condition = not rosetta_features.isna().any().any()
             if condition is False or rosetta_features['ifa_sc_value'][0] == -1:
                 print_infos(message=f'[{mol}] an incorrect descriptor was found, ignoring the structure to avoid errors', type='protocol')
                 continue
